@@ -87,7 +87,7 @@ describe('ConsumerService', () => {
     it('should return a consumer', async () => {
       const consumer = await service.updateConsumer(
         { firstName: 'updatedMock', address: 'updatedMock' },
-        { email: 'mock3@email.com', password: 'mock3' },
+        { email: 'mock3@email.com', firstName: 'mock', id: newConsumerId },
       );
       expect(consumer).toEqual(singleConsumer);
     });
@@ -97,7 +97,8 @@ describe('ConsumerService', () => {
     it('should return true to consumer deleted', async () => {
       const consumer = await service.deleteConsumer({
         email: 'mock3@email.com',
-        password: 'mock3',
+        firstName: 'mock',
+        id: newConsumerId,
       });
       expect(consumer).toBeTruthy();
     });

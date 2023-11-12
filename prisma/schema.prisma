@@ -1,0 +1,114 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+enum ProductCategory{
+
+  sweets
+  drink
+  food
+
+}
+
+enum OrderState{
+
+  preparing
+  inRoute
+  delivered
+  cancelled
+  
+}
+
+
+model Consumer{
+  
+  id                  String @id @map("_id") @db.ObjectId @default(auto())
+  firstName           String
+  lastName            String
+  email               String @unique
+  password            String
+  address             String
+
+  orders              Order[]  @relation(name: "consumer")
+
+
+}
+
+
+model Owner{
+
+  id                  String @id @map("_id") @db.ObjectId @default(auto())
+  firstName           String
+  lastName            String
+  email               String @unique
+  password            String
+  
+  restaurants        Restaurant[]
+}
+
+
+model Restaurant{
+  
+  id                  String @id @map("_id") @db.ObjectId @default(auto())
+  name                String
+  address             String
+  imageUrl            String
+
+  weekWorkTime        DateTime
+  weekendWorkTime     DateTime
+
+  ownerId             String  @db.ObjectId
+  owner               Owner @relation(fields: [ownerId],references: [id])
+
+  products            Product[]
+
+  orders              Order[] @relation(name: "restaurant")
+}
+
+
+model Product{
+  
+  id                  String @id @map("_id") @db.ObjectId @default(auto())
+  name                String
+  price               Float
+  category            ProductCategory
+  imageUrl            String
+  
+  
+  isDiscount          Boolean
+  discountPrice       Float?
+  discountTime        DateTime?
+  discountText        String?
+
+
+  restaurantId        String @db.ObjectId
+  restaurant          Restaurant @relation(fields: [restaurantId],references: [id])
+
+}
+
+
+model Order{
+
+  id                  String @id @map("_id") @db.ObjectId @default(auto())
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  state               OrderState
+
+  consumer            Consumer @relation(name: "consumer",fields: [consumerId],references: [id])
+  restaurant          Restaurant @relation(name: "restaurant",fields: [restaurantId],references: [id])
+
+  consumerId          String @db.ObjectId
+  restaurantId        String @db.ObjectId
+
+}
+
+

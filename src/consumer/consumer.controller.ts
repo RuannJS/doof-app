@@ -4,7 +4,6 @@ import {
   Get,
   Delete,
   Put,
-  Param,
   Body,
   UseGuards,
   UseInterceptors,
@@ -14,10 +13,9 @@ import { CreateConsumer } from './dto/CreateConsumer.dto';
 import { UpdateConsumer } from './dto/UpdateConsumer.dto,';
 import { Consumer } from './consumer.entity';
 import { Auth } from '../decorators/auth/auth.decorator';
-import { ConsumerAuth } from './auth/dto/ConsumerAuth.dto';
-import { ConsumerGuard } from 'src/guards/consumer/consumer.guard';
-import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
-import { AuthJWT } from 'src/owner/auth/auth.entity';
+import { ConsumerGuard } from '../guards/consumer/consumer.guard';
+import { AuthInterceptor } from '../interceptors/auth/auth.interceptor';
+import { AuthJWT } from '../owner/auth/auth.entity';
 
 @Controller('consumer')
 export class ConsumerController {

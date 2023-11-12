@@ -4,12 +4,14 @@ import { ConsumerService } from './consumer.service';
 import { mockConsumers } from './consumer.service.spec';
 import { CreateConsumer } from './dto/CreateConsumer.dto';
 import { UpdateConsumer } from './dto/UpdateConsumer.dto,';
-import { ConsumerAuth } from './auth/dto/ConsumerAuth.dto';
+
+import { AuthJWT } from './auth/auth.entity';
 
 describe('ConsumerController', () => {
-  const consumer: ConsumerAuth = {
+  const consumer: AuthJWT = {
     email: mockConsumers[0].email,
-    password: mockConsumers[0].password,
+    firstName: mockConsumers[0].firstName,
+    id: mockConsumers[0].id,
   };
 
   let controller: ConsumerController;

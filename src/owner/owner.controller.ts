@@ -12,9 +12,9 @@ import { OwnerService } from './owner.service';
 import { Owner } from './owner.entity';
 import { UpdateOwner } from './dto/UpdateOwner.dto';
 import { CreateOwner } from './dto/CreateOwner.dto';
-import { OwnerGuard } from 'src/guards/owner/owner.guard';
-import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
-import { Auth } from 'src/decorators/auth/auth.decorator';
+import { OwnerGuard } from '../guards/owner/owner.guard';
+import { AuthInterceptor } from '../interceptors/auth/auth.interceptor';
+import { Auth } from '../decorators/auth/auth.decorator';
 import { AuthJWT } from './auth/auth.entity';
 
 @Controller('owner')

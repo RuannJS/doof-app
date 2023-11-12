@@ -91,7 +91,7 @@ RETURNS
 TRUE IF DELETED
 FALSE IF NOT DELETED
 
-**RESTAURANT OWNER**
+**OWNER**
 
 _OWNER DATA_
 
@@ -120,3 +120,28 @@ _LIST ALL OWNERS_
 
 GET REQUEST
 localhost:3000/owner
+
+<!-- AUTHENTICATION NEEDED -->
+
+_UPDATE A OWNER_
+
+PUT REQUEST
+localhost:3000/owner
+
+UpdateOwner DTO =>
+
+fistName?:string
+lastName?:string
+email?:string
+password?:string
+
+RETURNS A SINGLE OWNER
+
+_DELETE A OWNER_
+
+DELETE REQUEST
+localhost:3000/owner
+
+RETURNS
+TRUE IF DELETED
+FALSE IF NOT DELETED

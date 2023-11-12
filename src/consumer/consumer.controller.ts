@@ -17,6 +17,7 @@ import { Auth } from '../decorators/auth/auth.decorator';
 import { ConsumerAuth } from './auth/dto/ConsumerAuth.dto';
 import { ConsumerGuard } from 'src/guards/consumer/consumer.guard';
 import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
+import { AuthJWT } from 'src/owner/auth/auth.entity';
 
 @Controller('consumer')
 export class ConsumerController {
@@ -43,7 +44,7 @@ export class ConsumerController {
   @Put()
   async updateConsumer(
     @Body() data: UpdateConsumer,
-    @Auth() consumer: ConsumerAuth,
+    @Auth() consumer: AuthJWT,
   ): Promise<UpdateConsumer> {
     return await this.service.updateConsumer(data, consumer);
   }
@@ -51,7 +52,7 @@ export class ConsumerController {
   @UseGuards(ConsumerGuard)
   @UseInterceptors(AuthInterceptor)
   @Delete()
-  async deleteConsumer(@Auth() consumer: ConsumerAuth): Promise<boolean> {
+  async deleteConsumer(@Auth() consumer: AuthJWT): Promise<boolean> {
     return this.service.deleteConsumer(consumer);
   }
 }

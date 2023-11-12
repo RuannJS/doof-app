@@ -9,6 +9,7 @@ import * as bcrypt from 'bcrypt';
 import { Consumer } from './consumer.entity';
 import { UpdateConsumer } from './dto/UpdateConsumer.dto,';
 import { ConsumerAuth } from './auth/dto/ConsumerAuth.dto';
+import { AuthJWT } from 'src/owner/auth/auth.entity';
 
 @Injectable()
 export class ConsumerService {
@@ -48,7 +49,7 @@ export class ConsumerService {
 
   async updateConsumer(
     data: UpdateConsumer,
-    consumer: ConsumerAuth,
+    consumer: AuthJWT,
   ): Promise<UpdateConsumer> {
     const verifyConsumer = await this.prisma.consumer.findUnique({
       where: {
@@ -65,23 +66,23 @@ export class ConsumerService {
 
       const updateHash = await bcrypt.hash(data.password, saltRounds);
 
-      const updatedUser = await this.prisma.consumer.update({
+      const updatedConsumer = await this.prisma.consumer.update({
         where: { email: consumer.email },
         data: { ...data, password: updateHash },
       });
 
-      return updatedUser;
+      return updatedConsumer;
     }
 
-    const updatedUser = await this.prisma.consumer.update({
+    const updatedConsumer = await this.prisma.consumer.update({
       where: { email: consumer.email },
-      data: { ...data },
+      data,
     });
 
-    return updatedUser;
+    return updatedConsumer;
   }
 
-  async deleteConsumer(consumer: ConsumerAuth): Promise<boolean> {
+  async deleteConsumer(consumer: AuthJWT): Promise<boolean> {
     const verifyConsumer = await this.prisma.consumer.findUnique({
       where: {
         email: consumer.email,
@@ -92,11 +93,11 @@ export class ConsumerService {
       throw new UnauthorizedException();
     }
 
-    const deletedUser = await this.prisma.consumer.delete({
+    const deletedConsumer = await this.prisma.consumer.delete({
       where: { email: consumer.email },
     });
 
-    if (deletedUser) {
+    if (deletedConsumer) {
       return true;
     }
 

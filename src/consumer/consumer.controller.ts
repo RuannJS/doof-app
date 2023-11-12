@@ -6,6 +6,8 @@ import {
   Put,
   Param,
   Body,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ConsumerService } from './consumer.service';
 import { CreateConsumer } from './dto/CreateConsumer.dto';
@@ -13,6 +15,8 @@ import { UpdateConsumer } from './dto/UpdateConsumer.dto,';
 import { Consumer } from './consumer.entity';
 import { Auth } from '../decorators/auth/auth.decorator';
 import { ConsumerAuth } from './auth/dto/ConsumerAuth.dto';
+import { AuthGuard } from 'src/guards/auth/auth.guard';
+import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
 
 @Controller('consumer')
 export class ConsumerController {
@@ -34,6 +38,8 @@ export class ConsumerController {
 
   //   UPDATE CONSUMER
 
+  @UseGuards(AuthGuard)
+  @UseInterceptors(AuthInterceptor)
   @Put()
   async updateConsumer(
     @Body() data: UpdateConsumer,
@@ -42,6 +48,8 @@ export class ConsumerController {
     return await this.service.updateConsumer(data, consumer);
   }
 
+  @UseGuards(AuthGuard)
+  @UseInterceptors(AuthInterceptor)
   @Delete()
   async deleteConsumer(@Auth() consumer: ConsumerAuth): Promise<boolean> {
     return this.service.deleteConsumer(consumer);

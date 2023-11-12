@@ -1,4 +1,4 @@
-# Goomer Lista Rango
+# DOOF DELIVERY APP
 
 ## Table of Contents
 
@@ -74,3 +74,16 @@ localhost:3000/consumer
 RETURNS
 TRUE IF DELETED
 FALSE IF NOT DELETED
+
+**RESTAURANT OWNER**
+
+_OWNER DATA_
+
+id:string
+firstName:string
+lastName:string
+email:string
+password:string
+restaurants:Restaurant[]
+
+_CREATE AN OWNER_

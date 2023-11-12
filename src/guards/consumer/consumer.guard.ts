@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import { AuthJWT } from 'src/consumer/auth/auth.entity';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class ConsumerGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
     try {
       jwt.verify(token, process.env.CONSUMER_KEY) as AuthJWT;
     } catch (error) {
-      console.log(error);
+      return false;
     }
 
     return true;

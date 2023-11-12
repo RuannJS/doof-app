@@ -41,6 +41,14 @@ _CREATE A CONSUMER_
 POST REQUEST
 localhost:3000/consumer
 
+CreateConsumer DTO =>
+
+fistName:string
+lastName:string
+email:string
+password:string
+address:string
+
 RETURNS A SINGLE CONSUMER
 
 _LIST ALL CONSUMERS_
@@ -64,6 +72,14 @@ _UPDATE A CONSUMER_
 PUT REQUEST
 localhost:3000/consumer
 
+UpdateConsumer DTO =>
+
+fistName?:string
+lastName?:string
+email?:string
+password?:string
+address?:string
+
 RETURNS A SINGLE CONSUMER
 
 _DELETE A CONSUMER_
@@ -84,6 +100,23 @@ firstName:string
 lastName:string
 email:string
 password:string
-restaurants:Restaurant[]
+restaurants?:Restaurant[]
 
 _CREATE AN OWNER_
+
+POST REQUEST
+localhost:3000/owner
+
+CreateOwner DTO =>
+
+fistName?:string
+lastName?:string
+email?:string
+password?:string
+
+RETURNS A SINGLE OWNER
+
+_LIST ALL OWNERS_
+
+GET REQUEST
+localhost:3000/owner

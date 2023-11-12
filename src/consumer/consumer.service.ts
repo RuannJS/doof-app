@@ -60,6 +60,19 @@ export class ConsumerService {
       throw new UnauthorizedException();
     }
 
+    if (data.password) {
+      const saltRounds = 5;
+
+      const updateHash = await bcrypt.hash(data.password, saltRounds);
+
+      const updatedUser = await this.prisma.consumer.update({
+        where: { email: consumer.email },
+        data: { ...data, password: updateHash },
+      });
+
+      return updatedUser;
+    }
+
     const updatedUser = await this.prisma.consumer.update({
       where: { email: consumer.email },
       data: { ...data },

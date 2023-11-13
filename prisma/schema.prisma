@@ -63,8 +63,11 @@ model Restaurant{
   address             String
   imageUrl            String
 
-  weekWorkTime        DateTime
-  weekendWorkTime     DateTime
+  weekOpeningTime     DateTime
+  weekClosingTime     DateTime
+
+  weekendOpeningTime  DateTime
+  weekendClosingTime  DateTime
 
   ownerId             String  @db.ObjectId
   owner               Owner @relation(fields: [ownerId],references: [id])
@@ -86,7 +89,8 @@ model Product{
   
   isDiscount          Boolean
   discountPrice       Float?
-  discountTime        DateTime?
+  discountStart       DateTime?
+  discountEnd         DateTime?
   discountText        String?
 
 

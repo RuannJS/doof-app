@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import * as jwt from 'jsonwebtoken';
-import { AuthJWT } from 'src/consumer/auth/auth.entity';
+import { AuthJWT } from 'src/owner/auth/auth.entity';
 
 @Injectable()
 export class OwnerGuard implements CanActivate {

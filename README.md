@@ -35,7 +35,6 @@ The API provides the following functionalities:
 - Promotional price (when applicable)
 - Days of the week and time when the product should be on promotion (when applicable)
 
-  
 # API Documentation
 
 ## Consumer
@@ -49,12 +48,12 @@ The API provides the following functionalities:
 - `password`: string
 - `address`: string
 
-
 ### Create a Consumer
 
 **Endpoint:** `POST /consumer`
 
 **Request Body:**
+
 ```json
 {
   "firstName": "string",
@@ -64,19 +63,22 @@ The API provides the following functionalities:
   "address": "string"
 }
 ```
+
 Response: Returns a single consumer.
 
 ### Authenticate Consumer
-**Endpoint:**  `POST /consumer/auth`
 
+**Endpoint:** `POST /consumer/auth`
 
 **Request Body:**
+
 ```json
 {
   "email": "string",
-  "password": "string",
+  "password": "string"
 }
 ```
+
 Response: Returns a bearer token.
 
 ### List All Consumers
@@ -91,7 +93,7 @@ Response: Returns an array of consumers.
 
 **Request Body:**
 
-*Optional*
+_Optional_
 
 ```json
 {
@@ -103,19 +105,17 @@ Response: Returns an array of consumers.
 }
 ```
 
-Response: Returns a  single consumer.
-
+Response: Returns a single consumer.
 
 ### Delete a Consumer
 
 **Endpoint:** `Delete /consumer`
 
-Response: 
+Response:
 
 `true` if deleted
 
 `false` if not deleted
-
 
 ## Owner
 
@@ -128,33 +128,36 @@ Response:
 - `password`: string
 - `restaurants`: Restaurant[]
 
-
 ### Create an Owner
 
 **Endpoint:** `POST /owner`
 
 **Request Body:**
+
 ```json
 {
   "firstName": "string",
   "lastName": "string",
   "email": "string",
-  "password": "string",
+  "password": "string"
 }
 ```
+
 Response: Returns a single owner.
 
 ### Authenticate Owner
-**Endpoint:**  `POST /owner/auth`
 
+**Endpoint:** `POST /owner/auth`
 
 **Request Body:**
+
 ```json
 {
   "email": "string",
-  "password": "string",
+  "password": "string"
 }
 ```
+
 Response: Returns a bearer token.
 
 ### List All Owners
@@ -169,30 +172,102 @@ Response: Returns an array of owners.
 
 **Request Body:**
 
-*Optional*
+_Optional_
 
 ```json
 {
   "firstName": "string",
   "lastName": "string",
   "email": "string",
-  "password": "string",
+  "password": "string"
 }
 ```
 
-Response: Returns a  single owner.
-
+Response: Returns a single owner.
 
 ### Delete an Owner
 
 **Endpoint:** `Delete /owner`
 
-*Also deletes all restaurants associated to its Owner*
+_Also deletes all restaurants associated to its Owner_
 
-Response: 
+Response:
 
 `true` if deleted
 
 `false` if not deleted
 
+## Product
 
+### Product Data
+
+- `id`: string
+- `name`: string
+- `price`: number
+- `category`: ProductCategory
+- `imageUrl`: string
+- `restaurantId`: string
+- `isDiscount`: boolean
+- `discountPrice`?: number
+- `discountStart`?: Datetime
+- `discountEnd`?: Datetime
+- `discountText`?: string
+
+### Create a Product
+
+**Endpoint:** `POST /product`
+
+**Request Body:**
+
+```json
+{
+"name": "string",
+"price": "number",
+"category": "ProductCategory",
+"imageUrl": "string",
+"restaurantId": "string",
+"isDiscount": "boolean",
+
+_OPTIONAL_
+
+"discountPrice": "number",
+"discountTime": "Date",
+"discountText": "string"
+}
+```
+
+Response: Returns a single product.
+
+### Update a Product
+
+**Endpoint:** `PUT /product/${productId}`
+
+**Request Body:**
+
+_Optional_
+
+```json
+{
+  "name": "string",
+  "price": "number",
+  "category": "ProductCategory",
+  "imageUrl": "string",
+  "restaurantId": "string",
+  "isDiscount": "boolean",
+  "discountPrice": "number",
+  "discountTime": "Date",
+  "discountText": "string"
+}
+```
+
+Response: Returns a single product.
+
+### Delete a Product
+
+**Endpoint:** `Delete /product/${productId}`
+
+Response:
+
+`true` if deleted
+
+`false` if not deleted

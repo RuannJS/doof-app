@@ -1,147 +1,198 @@
-# DOOF DELIVERY APP
+# Description
 
-## Table of Contents
+Doof App is a Node.js-based RESTful API. The goal is to manage information about restaurants and their respective menus.
 
-- [Technologies Used](#technologies-used)
-- [Project Overview](#project-overview)
-- [Getting Started](#getting-started)
-- [Installation](#installation)
+## Features
 
-## Technologies Used
+The API provides the following functionalities:
 
-- [NestJS](https://nestjs.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Prisma](https://www.prisma.io/)
-- [Bcrypt](https://www.npmjs.com/package/bcrypt)
-- [JWT](https://jwt.io/)
-- [MongoDB](https://www.mongodb.com/)
-- [Jest](https://jestjs.io/)
+- List all restaurants
+- Register new restaurants
+- Retrieve data from a restaurant
+- Modify restaurant data
+- Delete a restaurant
+- List all products from a restaurant
+- Create a product for a restaurant
+- Modify a product for a restaurant
+- Delete a product from a restaurant
 
-## Project Overview
+## Data Structure
 
-This project aims to create an API RESTful capable of managing restaurants and its products.
+### Restaurant
 
-# API DOCUMENTATION
+- Restaurant photo
+- Restaurant name
+- Restaurant address
+- Restaurant operating hours (e.g., Monday to Friday from 09:00 to 18:00 and Saturday to Sunday from 11:00 to 20:00).
 
-**CONSUMER**
+### Product
 
-<!-- NO AUTHENTICATION -->
+- Product photo
+- Product name
+- Product price
+- Product category (e.g., Sweets, Savory, Juices...)
+- Description for the product promotion (when applicable)
+- Promotional price (when applicable)
+- Days of the week and time when the product should be on promotion (when applicable)
 
-_CONSUMER DATA_
+  
+# API Documentation
 
-id: string
-fistName:string
-lastName:string
-email:string
-password:string
-address:string
+## Consumer
 
-_CREATE A CONSUMER_
+### Consumer Data
 
-POST REQUEST
-localhost:3000/consumer
+- `id`: string
+- `firstName`: string
+- `lastName`: string
+- `email`: string
+- `password`: string
+- `address`: string
 
-CreateConsumer DTO =>
 
-fistName:string
-lastName:string
-email:string
-password:string
-address:string
+### Create a Consumer
 
-RETURNS A SINGLE CONSUMER
+**Endpoint:** `POST /consumer`
 
-_LIST ALL CONSUMERS_
+**Request Body:**
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "password": "string",
+  "address": "string"
+}
+```
+Response: Returns a single consumer.
 
-GET REQUEST
-localhost:3000/consumer
+### Authenticate Consumer
+**Endpoint:**  `POST /consumer/auth`
 
-RETURNS AN ARRAY OF CONSUMERS
 
-_AUTHENTICATE USER_
+**Request Body:**
+```json
+{
+  "email": "string",
+  "password": "string",
+}
+```
+Response: Returns a bearer token.
 
-POST REQUEST
-localhost:3000/consumer
+### List All Consumers
 
-RETURNS A BEARER TOKEN
+**Endpoint:** `GET /consumer`
 
-<!-- AUTHENTICATION NEEDED -->
+Response: Returns an array of consumers.
 
-_UPDATE A CONSUMER_
+### Update a Consumer
 
-PUT REQUEST
-localhost:3000/consumer
+**Endpoint:** `PUT /consumer`
 
-UpdateConsumer DTO =>
+**Request Body:**
 
-fistName?:string
-lastName?:string
-email?:string
-password?:string
-address?:string
+*Optional*
 
-RETURNS A SINGLE CONSUMER
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "password": "string",
+  "address": "string"
+}
+```
 
-_DELETE A CONSUMER_
+Response: Returns a  single consumer.
 
-DELETE REQUEST
-localhost:3000/consumer
 
-RETURNS
-TRUE IF DELETED
-FALSE IF NOT DELETED
+### Delete a Consumer
 
-**OWNER**
+**Endpoint:** `Delete /consumer`
 
-_OWNER DATA_
+Response: 
 
-id:string
-firstName:string
-lastName:string
-email:string
-password:string
-restaurants?:Restaurant[]
+`true` if deleted
 
-_CREATE AN OWNER_
+`false` if not deleted
 
-POST REQUEST
-localhost:3000/owner
 
-CreateOwner DTO =>
+## Owner
 
-fistName?:string
-lastName?:string
-email?:string
-password?:string
+### Owner Data
 
-RETURNS A SINGLE OWNER
+- `id`: string
+- `firstName`: string
+- `lastName`: string
+- `email`: string
+- `password`: string
+- `restaurants`: Restaurant[]
 
-_LIST ALL OWNERS_
 
-GET REQUEST
-localhost:3000/owner
+### Create an Owner
 
-<!-- AUTHENTICATION NEEDED -->
+**Endpoint:** `POST /owner`
 
-_UPDATE A OWNER_
+**Request Body:**
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "password": "string",
+}
+```
+Response: Returns a single owner.
 
-PUT REQUEST
-localhost:3000/owner
+### Authenticate Owner
+**Endpoint:**  `POST /owner/auth`
 
-UpdateOwner DTO =>
 
-fistName?:string
-lastName?:string
-email?:string
-password?:string
+**Request Body:**
+```json
+{
+  "email": "string",
+  "password": "string",
+}
+```
+Response: Returns a bearer token.
 
-RETURNS A SINGLE OWNER
+### List All Owners
 
-_DELETE A OWNER_
+**Endpoint:** `GET /owner`
 
-DELETE REQUEST
-localhost:3000/owner
+Response: Returns an array of owners.
 
-RETURNS
-TRUE IF DELETED
-FALSE IF NOT DELETED
+### Update an Owner
+
+**Endpoint:** `PUT /owner`
+
+**Request Body:**
+
+*Optional*
+
+```json
+{
+  "firstName": "string",
+  "lastName": "string",
+  "email": "string",
+  "password": "string",
+}
+```
+
+Response: Returns a  single owner.
+
+
+### Delete an Owner
+
+**Endpoint:** `Delete /owner`
+
+*Also deletes all restaurants associated to its Owner*
+
+Response: 
+
+`true` if deleted
+
+`false` if not deleted
+
+

@@ -15,7 +15,7 @@ import { RestaurantService } from './restaurant.service';
 import { OwnerGuard } from '../guards/owner/owner.guard';
 import { AuthInterceptor } from '../interceptors/auth/auth.interceptor';
 import { Auth } from '../decorators/auth/auth.decorator';
-import { AuthJWT } from 'src/owner/auth/auth.entity';
+import { AuthJWT } from '../owner/auth/auth.entity';
 import { Restaurant } from './restaurant.entity';
 
 @Controller('restaurant')

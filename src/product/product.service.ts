@@ -3,9 +3,9 @@ import {
   UnauthorizedException,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateProduct } from './dto/CreateProduct.dto';
-import { AuthJWT } from 'src/owner/auth/auth.entity';
+import { AuthJWT } from '../owner/auth/auth.entity';
 import { Product } from './product.entity';
 import { UpdateProduct } from './dto/UpdateProduct.dto';
 

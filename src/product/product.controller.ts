@@ -10,12 +10,12 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { Auth } from 'src/decorators/auth/auth.decorator';
-import { AuthJWT } from 'src/owner/auth/auth.entity';
+import { Auth } from '../decorators/auth/auth.decorator';
+import { AuthJWT } from '../owner/auth/auth.entity';
 import { CreateProduct } from './dto/CreateProduct.dto';
 import { Product } from './product.entity';
-import { AuthInterceptor } from 'src/interceptors/auth/auth.interceptor';
-import { OwnerGuard } from 'src/guards/owner/owner.guard';
+import { AuthInterceptor } from '../interceptors/auth/auth.interceptor';
+import { OwnerGuard } from '../guards/owner/owner.guard';
 import { UpdateProduct } from './dto/UpdateProduct.dto';
 
 @Controller('product')

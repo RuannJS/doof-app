@@ -109,7 +109,6 @@ describe('RestaurantController', () => {
         mockOwner,
         '65527d314201bfcdff2ebebe',
       );
-
       expect(restaurant).toBeTruthy();
     });
   });

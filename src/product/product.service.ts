@@ -15,14 +15,20 @@ export class ProductService {
 
   //   AUTHORIZATION
 
-  async checkOwner(restaurantId: string, ownerId: string): Promise<void> {
+  async checkOwner(restaurantId: string, ownerId: string): Promise<boolean> {
     const restaurant = await this.prisma.restaurant.findUnique({
       where: { id: restaurantId },
     });
 
-    if (restaurant.ownerId !== ownerId) {
-      throw new UnauthorizedException();
+    if (!restaurant) {
+      return false;
     }
+
+    if (restaurant.ownerId !== ownerId) {
+      return false;
+    }
+
+    return true;
   }
 
   async checkProduct(productId: string, ownerId: string): Promise<void> {
@@ -34,17 +40,21 @@ export class ProductService {
       throw new NotFoundException("Product doesn't exist");
     }
 
-    this.checkOwner(product.restaurantId, ownerId);
+    if ((await this.checkOwner(product.restaurantId, ownerId)) === false) {
+      throw new UnauthorizedException();
+    }
   }
 
   // ENDPOINTS
 
   async createProduct(data: CreateProduct, owner: AuthJWT): Promise<Product> {
-    this.checkOwner(data.restaurantId, owner.id);
+    if ((await this.checkOwner(data.restaurantId, owner.id)) === false) {
+      throw new UnauthorizedException();
+    } else {
+      const newProduct = await this.prisma.product.create({ data });
 
-    const newProduct = await this.prisma.product.create({ data });
-
-    return newProduct;
+      return newProduct;
+    }
   }
 
   async updateProduct(

@@ -97,6 +97,10 @@ model Product{
   restaurantId        String @db.ObjectId
   restaurant          Restaurant @relation(fields: [restaurantId],references: [id])
 
+  orders              Order[]  @relation(fields: [order_id],references: [id])
+  order_id            String[] @db.ObjectId
+
+
 }
 
 
@@ -113,6 +117,8 @@ model Order{
   consumerId          String @db.ObjectId
   restaurantId        String @db.ObjectId
 
-}
+  products            Product[] @relation(fields: [product_id],references: [id])
+  product_id          String[] @db.ObjectId
 
+}
 

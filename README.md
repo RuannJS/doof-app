@@ -2,38 +2,15 @@
 
 Doof App is a Node.js-based RESTful API. The goal is to manage information about restaurants and their respective menus.
 
-## Features
 
-The API provides the following functionalities:
+# Techologies Used
 
-- List all restaurants
-- Register new restaurants
-- Retrieve data from a restaurant
-- Modify restaurant data
-- Delete a restaurant
-- List all products from a restaurant
-- Create a product for a restaurant
-- Modify a product for a restaurant
-- Delete a product from a restaurant
-
-## Data Structure
-
-### Restaurant
-
-- Restaurant photo
-- Restaurant name
-- Restaurant address
-- Restaurant operating hours (e.g., Monday to Friday from 09:00 to 18:00 and Saturday to Sunday from 11:00 to 20:00).
-
-### Product
-
-- Product photo
-- Product name
-- Product price
-- Product category (e.g., Sweets, Savory, Juices...)
-- Description for the product promotion (when applicable)
-- Promotional price (when applicable)
-- Days of the week and time when the product should be on promotion (when applicable)
+- [NestJS](https://nestjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Prisma](https://www.prisma.io/)
+- [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- [JWT](https://jwt.io/)
+- [MongoDB](https://www.mongodb.com/)
 
 # API Documentation
 
@@ -89,6 +66,8 @@ Response: Returns an array of consumers.
 
 ### Update a Consumer
 
+*REQUIRES CONSUMER BEARER TOKEN*
+
 **Endpoint:** `PUT /consumer`
 
 **Request Body:**
@@ -108,6 +87,8 @@ _Optional_
 Response: Returns a single consumer.
 
 ### Delete a Consumer
+
+*REQUIRES CONSUMER BEARER TOKEN*
 
 **Endpoint:** `Delete /consumer`
 
@@ -168,6 +149,8 @@ Response: Returns an array of owners.
 
 ### Update an Owner
 
+*REQUIRES OWNER BEARER TOKEN*
+
 **Endpoint:** `PUT /owner`
 
 **Request Body:**
@@ -186,6 +169,8 @@ _Optional_
 Response: Returns a single owner.
 
 ### Delete an Owner
+
+*REQUIRES OWNER BEARER TOKEN*
 
 **Endpoint:** `Delete /owner`
 
@@ -215,6 +200,8 @@ Response:
 
 ### Create a Product
 
+*REQUIRES OWNER BEARER TOKEN*
+
 **Endpoint:** `POST /product`
 
 **Request Body:**
@@ -240,6 +227,8 @@ Response: Returns a single product.
 
 ### Update a Product
 
+*REQUIRES OWNER BEARER TOKEN*
+
 **Endpoint:** `PUT /product/${productId}`
 
 **Request Body:**
@@ -264,6 +253,8 @@ Response: Returns a single product.
 
 ### Delete a Product
 
+*REQUIRES OWNER BEARER TOKEN*
+
 **Endpoint:** `Delete /product/${productId}`
 
 Response:
@@ -271,3 +262,135 @@ Response:
 `true` if deleted
 
 `false` if not deleted
+
+## Restaurant
+
+### Restaurant Data
+
+- `id`: string
+- `name`: string
+- `address`: string
+- `imageUrl`: string
+- `weekOpeningTime`: Date
+- `weekClosingTime`: Date
+- `weekendOpeningTime`: Date
+- `weekendClosingTime`: Date
+- `ownerId`: string
+
+### List all Restaurants
+
+**Endpoint:** `GET /restaurant`
+
+Response: Returns an array of restaurants.
+
+### Create a Restaurant
+
+*REQUIRES OWNER BEARER TOKEN*
+
+**Endpoint:** `POST /restaurant`
+
+**Request Body:**
+
+```json
+{
+"name": "string",
+"address": "string",
+"imageUrl": "string",
+"weekOpeningTime": "Date",
+"weekClosingTime": "Date",
+"weekendOpeningTime": "Date"
+"weekendClosingTime": "Date"
+```
+
+Response: Returns a single restaurant.
+
+### Update a Restaurant
+
+*REQUIRES OWNER BEARER TOKEN*
+
+**Endpoint:** `PUT /restaurant/${restaurantId}`
+
+**Request Body:**
+
+_Optional_
+
+```json
+{
+"name": "string",
+"address": "string",
+"imageUrl": "string",
+"weekOpeningTime": "Date",
+"weekClosingTime": "Date",
+"weekendOpeningTime": "Date"
+"weekendClosingTime": "Date"
+}
+```
+
+
+Response: Returns a single restaurant.
+
+### Delete a Restaurant
+
+*REQUIRES OWNER BEARER TOKEN*
+
+**Endpoint:** `Delete /restaurant/${restaurantId}`
+
+Response:
+
+`true` if deleted
+
+`false` if not deleted
+
+## Order
+
+### Order Data
+
+- `id`: string
+- `createdAt`: Date
+- `updatedAt`: Date
+- `state`: OrderState
+- `consumerId`: string
+- `restaurantId`: string
+- `products`: Product[ ]
+
+
+### List Orders by Restaurant ID
+
+*REQUIRES OWNER BEARER TOKEN*
+
+**Endpoint:** `GET /order/${restaurantId}`
+
+Response: Returns an array of orders made to a single restaurant.
+
+### Create Order
+
+*REQUIRES CONSUMER BEARER TOKEN*
+
+**Endpoint:** `POST /order/${restaurantId}`
+
+**Request Body:**
+
+```json
+{
+"ids": "string[ ]"
+}
+```
+
+Response: Returns a single order.
+
+
+### Update an Order
+
+*REQUIRES OWNER BEARER TOKEN*
+
+**Endpoint:** `PUT /order/${orderId}`
+
+**Request Body:**
+
+```json
+{
+"state": "OrderState"
+}
+```
+
+Response: Returns a single order

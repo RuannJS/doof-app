@@ -1,4 +1,5 @@
 import { OrderState } from '@prisma/client';
+import { Product } from 'src/product/product.entity';
 
 export class Order {
   id: string;
@@ -12,4 +13,6 @@ export class Order {
   consumerId: string;
 
   restaurantId: string;
+
+  products: Product[];
 }

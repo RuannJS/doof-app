@@ -36,6 +36,15 @@ export class OrderService {
 
     const orders = await this.prisma.order.findMany({
       where: { restaurantId },
+      select: {
+        consumerId: true,
+        products: true,
+        id: true,
+        createdAt: true,
+        restaurantId: true,
+        state: true,
+        updatedAt: true,
+      },
     });
 
     return orders;
@@ -71,6 +80,15 @@ export class OrderService {
         consumerId: consumer.id,
         restaurantId,
       },
+      select: {
+        consumerId: true,
+        products: true,
+        id: true,
+        createdAt: true,
+        restaurantId: true,
+        state: true,
+        updatedAt: true,
+      },
     });
 
     return newOrder;
@@ -92,6 +110,15 @@ export class OrderService {
     const updateOrderState = await this.prisma.order.update({
       where: { id: orderId },
       data: { state: data.state },
+      select: {
+        consumerId: true,
+        products: true,
+        id: true,
+        createdAt: true,
+        restaurantId: true,
+        state: true,
+        updatedAt: true,
+      },
     });
 
     return updateOrderState;

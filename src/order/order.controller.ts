@@ -16,7 +16,7 @@ import { Auth } from '../decorators/auth/auth.decorator';
 import { AuthJWT } from '../owner/auth/auth.entity';
 import { Order } from './order.entity';
 
-import { ConsumerGuard } from 'src/guards/consumer/consumer.guard';
+import { ConsumerGuard } from '../guards/consumer/consumer.guard';
 import { CreateOrder } from './dto/CreateOrder.dto';
 import { UpdateOrder } from './dto/UpdateOrder.dto';
 
